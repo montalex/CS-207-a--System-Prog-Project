@@ -1,0 +1,9 @@
+*****************************************
+**********DATABASE HEADER START**********
+DB NAME:              EPFL PictDB binary
+VERSION: 0
+IMAGE COUNT: 0		MAX IMAGES: 10
+THUMBNAIL: 64 x 64	SMALL: 256 x 256
+***********DATABASE HEADER END***********
+*****************************************
+<< empty database >>

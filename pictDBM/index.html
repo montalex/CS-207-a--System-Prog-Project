@@ -1,0 +1,54 @@
+<html>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <h3>PictDB Pictures:</h3>
+    <table border="0" cellspacing="20">
+    </table>
+    <form action='http://localhost:8000/pictDB/insert' method='POST' enctype="multipart/form-data">
+      <input type='file' name='up_file' id='up_file' />
+      <input type='submit' />
+    </form>
+
+</body>
+
+<script>
+var getJSON = function(url) {
+  return new Promise(function(resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('get', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+      var status = xhr.status;
+      if (status == 200) {
+        resolve(xhr.response);
+      } else {
+        reject(status);
+      }
+    };
+    xhr.send();
+  });
+};
+
+getJSON('http://localhost:8000/pictDB/list').then(function(data) {
+    $(document).ready(function(){
+    for (var i = 0; i < data.Pictures.length; i++) {
+        var pic = data.Pictures[i];
+        $("table").append('<tr>' +
+          '<th> <a href="http://localhost:8000/pictDB/read?res=orig&pict_id='+pic+'" >' +
+          '<img border="0" alt="NoPic" src="http://localhost:8000/pictDB/read?res=thumb&pict_id='+pic+'" ></a></th>' +
+          '<th>' + pic + '</th>' +
+          '<th></th>'+
+          '<th> <a href="http://localhost:8000/pictDB/delete?pict_id='+pic+'" >' +
+          '<img border="0" alt="NoPic" src="http://findicons.com/files/icons/2015/24x24_free_application/24/erase.png" ></a></th>' +
+          '</tr>');
+    }
+    })
+}, function(status) {
+  alert('Something went wrong.');
+});
+
+</script>
+</html>
